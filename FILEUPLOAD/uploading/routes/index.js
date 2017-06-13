@@ -17,6 +17,7 @@ router.get('/', function(req, res, next) {
  res.render('index', { title: 'Express' });
 });
 
+/* POST iamges */
 router.post('/',upload.any(),function(req,res,next){
 	console.log(req.files);
 	res.send(req.files);
