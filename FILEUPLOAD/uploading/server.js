@@ -104,7 +104,7 @@ app.post('/file_upload', urlencodedParser, upload.any(),function(req,res,next){
   pg.connect(connectionString, (err, client, done) => {
     var count = 0;
     res.send(req.files);
-    console.log(req.files);
+    // console.log(req.files);
     var data = req.files;
     //{
     // if(err){
@@ -113,7 +113,7 @@ app.post('/file_upload', urlencodedParser, upload.any(),function(req,res,next){
     //   return res.status(500).json({success:false, data:err});
     // }
      for(var i = 0; i < data.length; i++) {
-        console.log((data[i])["originalname"]);
+        console.log("=========================================>" + (data[i])["originalname"] + "<======================================================");
         var filename = (data[i])["originalname"];
         client.query(
           'INSERT INTO uploads(uploaded_filename) values($1)',
@@ -125,13 +125,12 @@ app.post('/file_upload', urlencodedParser, upload.any(),function(req,res,next){
               console.log("Inserted data into table");
             }
           count ++;
-          console.log('count =' +count);
+          console.log('\n ====================== COUNT =' +count);
           if(count == data.length){
-            console.log("Connection will end now");
+            console.log(" ================================================================> End of Connection <======================================");
             client.end();
           }
         });
-       //client.query("INSERT INTO uploads(uploaded_filename) values('" +  filename + "')");
    }
  });
 });
