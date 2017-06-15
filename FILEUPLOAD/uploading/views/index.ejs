@@ -1,4 +1,16 @@
 <!-- <html>
+   <body>
+
+      <form action = "http://127.0.0.1:3000/process_post" method = "POST">
+         First Name: <input type = "text" name = "first_name"> <br>
+         Last Name: <input type = "text" name = "last_name">
+         <input type = "submit" value = "Submit">
+      </form>
+
+   </body>
+</html> -->
+
+<html>
 <head>
 <style>
 #box
@@ -18,8 +30,45 @@
 	}
 </style>
  </head>
-<body>
-	<form align="center" method="post" enctype="multipart/form-data">
+ <body>
+  <h3>File Upload:</h3>
+  Select a file to upload: <br />
+	<form align="center"  method="post" enctype="multipart/form-data">
+    <div id="box">
+       <h2><center>Upload Files/Images</center></h2>
+       <table>
+  		<tr>
+  			<td>
+  		<input type="file" name="myimage1" /><br/><br/>
+  			</td>
+  		</tr>
+  		<tr>
+  			<td>
+  		<input type="file" name="myimage2" /><br/><br/>
+  		    </td>
+  		</tr>
+  		<tr>
+  			<td>
+  		<input type="file" name="myimage3" /><br/><br/>
+  			</td>
+  		</tr>
+  		<tr>
+  			<td>
+  			<center>
+  		<input type="submit" name="submit" value="submit"></center>
+  		</td>
+  		</tr>
+  		</table>
+  		</div>
+  	</form>
+         <!-- <input type="file" name="image" size="50" />
+         <br />
+         <input type = "submit" value = "Upload File" />
+      </form> -->
+
+   </body>
+<!-- <body>
+	<form align="center" method="post" enctype="multipart/form-data" action = "http://127.0.0.1:3000/process_post">
 	<div id="box">
      <h2><center>Upload Files/Images</center></h2>
      <table>
@@ -47,9 +96,10 @@
 		</table>
 		</div>
 	</form>
-</body>
-</html> -->
-<html>
+</body> -->
+</html>
+
+<!-- <html>
    <body>
 
       <form action = "http://127.0.0.1:3000/process_post" method = "POST">
@@ -59,4 +109,4 @@
       </form>
 
    </body>
-</html>
+</html> -->

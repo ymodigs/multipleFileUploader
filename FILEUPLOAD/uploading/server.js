@@ -69,10 +69,14 @@ app.use(bodyParser.urlencoded({ extended: false}));
 // app.use(multer({ dest: '/public/uploads/'}));
 //var upload = multer({ dest: './public/uploads'}).single();
 var upload = multer({ storage:storage });
-app.get('/index.html', function (req, res) {
+app.get('/', function (req, res) {
    res.sendFile( __dirname + "/" + "index.html" );
 })
 
+
+// app.get('/multipart_upload', function (req, res) {
+//    res.sendFile( __dirname + "/" + "index.html" );
+// })
 // app.post('/process_post', urlencodedParser, function (req, res) {
 //
 //
@@ -97,7 +101,6 @@ app.get('/index.html', function (req, res) {
 //    console.log("Inserting data into table");
 //   });
 // })
-
 
 app.post('/file_upload', urlencodedParser, upload.any(),function(req,res,next){
 	//console.log(req.files)
@@ -134,6 +137,75 @@ app.post('/file_upload', urlencodedParser, upload.any(),function(req,res,next){
    }
  });
 });
+
+// Refernce function
+// router.post('/api/v1/todos', (req, res, next) => {
+//   const results = [];
+//   // Grab data from http request
+//   const data = {text: req.body.text, complete: false};
+//   // Get a Postgres client from the connection pool
+//   pg.connect(connectionString, (err, client, done) => {
+//     // Handle connection errors
+//     if(err) {
+//       done();
+//       console.log(err);
+//       return res.status(500).json({success: false, data: err});
+//     }
+//     // SQL Query > Insert Data
+//     client.query('INSERT INTO items(text, complete) values($1, $2)',
+//     [data.text, data.complete]);
+//     // SQL Query > Select Data
+//     const query = client.query('SELECT * FROM items ORDER BY id ASC');
+//     // Stream results back one row at a time
+//     query.on('row', (row) => {
+//       results.push(row);
+//     });
+//     // After all data is returned, close connection and return results
+//     query.on('end', () => {
+//       done();
+//       return res.json(results);
+//     });
+//   });
+// });
+
+
+
+//<!-- Working function -->
+// app.post('/file_upload', urlencodedParser, upload.any(),function(req,res,next){
+// 	//console.log(req.files)
+//   pg.connect(connectionString, (err, client, done) => {
+//     var count = 0;
+//     res.send(req.files);
+//     // console.log(req.files);
+//     var data = req.files;
+//     //{
+//     // if(err){
+//     //   done();
+//     //   console.log(err);
+//     //   return res.status(500).json({success:false, data:err});
+//     // }
+//      for(var i = 0; i < data.length; i++) {
+//         console.log("=========================================>" + (data[i])["originalname"] + "<======================================================");
+//         var filename = (data[i])["originalname"];
+//         client.query(
+//           'INSERT INTO uploads(uploaded_filename) values($1)',
+//           [filename],
+//           function(err,result) {
+//             if(err){
+//               console.log(err);
+//             } else{
+//               console.log("Inserted data into table");
+//             }
+//           count ++;
+//           console.log('\n ====================== COUNT =' +count);
+//           if(count == data.length){
+//             console.log(" ================================================================> End of Connection <======================================");
+//             client.end();
+//           }
+//         });
+//    }
+//  });
+// });
 
 
 var server = app.listen(3000, function () {

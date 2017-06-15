@@ -1,6 +1,3 @@
-/* How do I make a Database connection and database enteries here */
-
-
 var express = require('express');
 
 var path = require('path');

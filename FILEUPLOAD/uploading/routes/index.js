@@ -27,31 +27,58 @@ router.get('/', function(req, res, next) {
 
 
 
-router.post('/api/v1/1029',upload.any(),function(req,res,next){
-	// console.log(req.files);
-	// res.send(req.files.originalname+'\n');
+router.post('/api/v1/1029',  urlencodedParser, upload.any(),function(req,res,next){
 
-
-	// const results = [];
-	// const data = {text: req.body.text, }
+	pg.connect(connectionString, (err, client, done) => {
+		var count = 0;
+		res.send(req.files);
+		// console.log(req.files);
+		var data = req.files;
+		//{
+		// if(err){
+		//   done();
+		//   console.log(err);
+		//   return res.status(500).json({success:false, data:err});
+		// }
+		 for(var i = 0; i < data.length; i++) {
+				console.log("=========================================>" + (data[i])["originalname"] + "<======================================================");
+				var filename = (data[i])["originalname"];
+				client.query(
+					'INSERT INTO uploads(uploaded_filename) values($1)',
+					[filename],
+					function(err,result) {
+						if(err){
+							console.log(err);
+						} else{
+							console.log("Inserted data into table");
+						}
+					count ++;
+					console.log('\n ====================== COUNT =' +count);
+					if(count == data.length){
+						console.log(" ================================================================> End of Connection <======================================");
+						client.end();
+					}
+				});
+	 }
+ });
 });
 
 
 /* POST iamges */
-router.post('/', urlencodedParser, upload.any(),function(req,res,next){
-	//console.log(req.files);
-	res.send(req.files);
-	console.log("HELLO"+'\n');
-
-	response = {
-		 image1:req.body.myimage1,
-		 image2:req.body.myimage2,
-		 image3: req.body.myimage3,
-	};
-
-	console.log(response);
-	res.end(JSON.stringify(response));
-});
+// router.post('/', urlencodedParser, upload.any(),function(req,res,next){
+// 	//console.log(req.files);
+// 	res.send(req.files);
+// 	console.log("HELLO"+'\n');
+//
+// 	response = {
+// 		 image1:req.body.myimage1,
+// 		 image2:req.body.myimage2,
+// 		 image3: req.body.myimage3,
+// 	};
+//
+// 	console.log(response);
+// 	res.end(JSON.stringify(response));
+// });
 
 
 
